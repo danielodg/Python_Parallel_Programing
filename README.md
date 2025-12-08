@@ -10,7 +10,7 @@ Estos son los ejemplos de la exposición sobre programación paralela en python
 
     Descripción: `Demuestra el uso de un ProcessPoolExecutor para paralelizar una tarea intensiva en CPU (CPU-bound): encontrar números primos en un rango grande. Muestra la ganancia de rendimiento (speedup) al dividir el trabajo entre múltiples procesos, uno por core de CPU, superando la limitación del GIL (Global Interpreter Lock) de Python.`
 
-CP4_asyncio_para_io.py
+# CP4_asyncio_para_io.py
 
     Descripción: `Ilustra la concurrencia basada en asyncio (programación asíncrona) para tareas ligadas a Entrada/Salida (I/O-bound). Contiene ejemplos que muestran:
         gather() para ejecutar coroutines concurrentemente.
