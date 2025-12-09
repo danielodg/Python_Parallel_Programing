@@ -1,5 +1,5 @@
 import asyncio
-import aiohttp
+import aiohttp #para peticiones HTTP asíncronas
 import time
 
 
@@ -24,7 +24,7 @@ async def main_basic():
 # -------------------------------------------------
 async def main_concurrent():
     results = await asyncio.gather(
-        say_hello("Task 1", 2),
+        say_hello("Task 1", 2), 
         say_hello("Task 2", 1),
         say_hello("Task 3", 3)
     )
@@ -32,15 +32,16 @@ async def main_concurrent():
 
 
 # -------------------------------------------------
-# Ejemplo 3: create_task() para más control
+# Ejemplo 3: create_task() para más control 
+#! Los tasks permiten mayor control sobre la ejecución, como cancelación o seguimiento del estado
 # -------------------------------------------------
 async def main_with_tasks():
     task1 = asyncio.create_task(say_hello("Task 1", 2))
     task2 = asyncio.create_task(say_hello("Task 2", 1))
     task3 = asyncio.create_task(say_hello("Task 3", 3))
 
-    # Esperar todos
-    await task1
+    # Esperar todos y ver resultados
+    await task1 
     await task2
     await task3
 
@@ -61,7 +62,7 @@ async def main_http():
         "https://api.github.com"
     ]
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session: #Gestiona conexión y cookies HTTP y cierra al final 
         tasks = [fetch_url(session, url) for url in urls]
         results = await asyncio.gather(*tasks)
 
@@ -70,7 +71,8 @@ async def main_http():
 
 
 # -------------------------------------------------
-# Ejemplo 5: as_completed() - procesar a medida que terminan
+# Ejemplo 5: as_completed() - procesar a medida que terminan sin esperar a todos
+#El orden de inicializacion de las tareas es debido al bucle, ya que prioriza la finalizacion y no la inicializacion
 # -------------------------------------------------
 async def main_as_completed():
     tasks = [say_hello(f"Task {i}", i) for i in range(1, 5)]

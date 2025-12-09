@@ -23,15 +23,16 @@ def find_primes_in_range(start, end):
     return primes
 
 
-# Wrapper para evitar usar lambda
-def run_range(r):
+# Wrapper(envoltorio) para evitar usar lambda
+def run_range(r): #! r es una tupla (start, end)
     return find_primes_in_range(r[0], r[1])
 
 
 # ----------------------------------------
-# Protección obligatoria en Windows/Linux
+# Protección obligatoria en Windows/Linux 
+# garantizando que el codigo de subprocesos no se ejecute al importar sino solo al ejecutar el script directamente
 # ----------------------------------------
-if __name__ == "__main__":
+if __name__ == "__main__": 
 
     RANGE_END = 100000
 
@@ -49,10 +50,16 @@ if __name__ == "__main__":
     cores = cpu_count()
     chunk_size = RANGE_END // cores
 
-    ranges = [(i, i + chunk_size) for i in range(1, RANGE_END, chunk_size)]
+    # Crear lista de tuplas (start, end) para cada proceso
+    starts = list(range(1, RANGE_END, chunk_size))
+    ranges = [(i, min(i + chunk_size, RANGE_END)) for i in starts]
+
+
 
     with ProcessPoolExecutor(max_workers=cores) as executor:
         results = executor.map(run_range, ranges)
+        #results es un iterador de listas de primos devueltas por cada proceso
+    
 
     all_primes = []
     for r in results:
@@ -62,4 +69,4 @@ if __name__ == "__main__":
 
     print(f"Encontrados {len(all_primes)} primos")
     print(f"Tiempo con procesos: {time_parallel:.2f}s")
-    print(f"Speedup: {(time_seq / time_parallel):.2f}x")
+    print(f"Speedup: {(time_seq / time_parallel):.2f}x")  #Aceleracion(MR) = Tiempo secuencial / Tiempo paralelo
