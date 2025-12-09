@@ -7,9 +7,9 @@ def download_url(url):
     return f"Downloaded {url}: {len(response.content)} bytes"
 # Lista de URLs
 urls = [
-'http://www.example.com',
-'http://www.example.org',
-'http://www.example.net',
+'https://www.google.com/',
+'https://httpbin.org/get',
+'https://www.wikipedia.org/',
 'http://www.python.org',
 'http://www.github.com'
 ]

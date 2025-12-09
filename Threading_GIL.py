@@ -16,7 +16,8 @@ for i in range(3):
 
 for t in threads:
     t.join()
-    
+
+print("\nEjemplo 2\n")    
 # Ejemplo 2: Race condition y Lock
 counter = 0
 counter_lock = threading.Lock()
@@ -50,7 +51,7 @@ for t in threads:
     t.join()
 print(f"Counter con lock: {counter}")
 
-
+print("\nEjemplo 3\n")
 # Ejemplo 3: Demostrar el GIL
 def cpu_bound_task():
     total = 0
